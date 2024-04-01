@@ -30,7 +30,7 @@ font-size: 16px;
                    }
                    """,
         ):
-            baseline = st.button("explaination", key='baseline')
+            baseline = st.button("Explanation", key='baseline')
             if baseline:
                 st.session_state['page'] = 'baseline_model'
     with col2:
