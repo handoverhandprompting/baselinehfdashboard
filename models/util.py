@@ -226,7 +226,7 @@ def predict_plot(hr1: float, hr2: float):
     plt.plot(predicted_survival2, color='red')
     plt.plot(predicted_survival1, color='blue')
     plt.title('')
-    plt.xlabel('Time')
+    plt.xlabel('Years after Sacubitril/Valsartan Initiation')
     plt.ylabel('Survival Probability')
 
     
