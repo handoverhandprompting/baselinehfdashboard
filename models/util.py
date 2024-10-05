@@ -241,4 +241,11 @@ def predict_plot(hr1: float, hr2: float):
     # 設定 X 軸的刻度標籤
     plt.gca().xaxis.set_major_formatter(ticker.FuncFormatter(lambda x, _: int(x/12)))  # 將刻度除以 12 以得到年份
     
+    # 設定 Y 軸的刻度（從 0 到 1，每 0.1 一個刻度）
+    y_intervals = np.arange(0, 1.1, 0.1)
+    plt.yticks(y_intervals)
+
+    # 設定 Y 軸的上下限
+    plt.ylim(0, 1)
+    
     return f
