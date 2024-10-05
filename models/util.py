@@ -202,7 +202,7 @@ class HrControl:
 
 
 def calculate_and_set(dialysis, bun, age, lvef_2d_none, lvef_2d, esd_none, esd, rdw_cv_none, rdw_cv, ivsd_none, ivsd, bmi, lvmi_none, lvmi, nt_proBNP_none, nt_proBNP, paod, total_acei, p2y12, ar_none, ar_value, en_h_display, nyha, rvdd_none, rvdd, ua_u_0, alt_none, alt, lad_none, lad, session_name):
-    baseline_hazard = load_csv("./models/baseline_hazard.csv")
+    baseline_hazard = load_csv("./models/baseline_hazard(1).csv")
     baseline_survival = np.exp(-baseline_hazard['hazard'])
     value = HrControl.risk_calculation(baseline_survival, dialysis, bun, age, lvef_2d_none, lvef_2d, esd_none, esd, rdw_cv_none, rdw_cv, ivsd_none, ivsd, bmi, lvmi_none, lvmi, nt_proBNP_none, nt_proBNP, paod, total_acei, p2y12, ar_none, ar_value, en_h_display, nyha, rvdd_none, rvdd, ua_u_0, alt_none, alt, lad_none,
                                        lad)
@@ -216,7 +216,7 @@ def load_csv(data_path):
 
 
 def predict_plot(hr1: float, hr2: float):
-    baseline_hazard = load_csv("./models/baseline_hazard.csv")
+    baseline_hazard = load_csv("./models/baseline_hazard(1).csv")
     baseline_survival = np.exp(-baseline_hazard['hazard'])
     f = plt.figure('v1', figsize=(10, 3), facecolor='#FAF3DD', edgecolor='#FAF3DD')
     plt.style.use('Solarize_Light2')
