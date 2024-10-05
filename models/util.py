@@ -49,10 +49,7 @@ class HrControl:
     session_name = 'init'
 
     @staticmethod
-    def risk_calculation(dialysis, bun, age, lvef_2d_none, lvef_2d, esd_none, esd, rdw_cv_none, rdw_cv, ivsd_none, ivsd, bmi, lvmi_none, lvmi, nt_proBNP_none, nt_proBNP, paod, total_acei, p2y12, ar_none, ar_value, en_h_display, nyha, rvdd_none, rvdd, ua_u_0, alt_none, alt, lad_none, lad):
-        # 設定基礎值 = 1
-        base = 1
-
+    def risk_calculation(baseline_survival, dialysis, bun, age, lvef_2d_none, lvef_2d, esd_none, esd, rdw_cv_none, rdw_cv, ivsd_none, ivsd, bmi, lvmi_none, lvmi, nt_proBNP_none, nt_proBNP, paod, total_acei, p2y12, ar_none, ar_value, en_h_display, nyha, rvdd_none, rvdd, ua_u_0, alt_none, alt, lad_none, lad):
         # Exponential 部分數值
         # Dialysis & BUN 相關計算
         if dialysis == 0:
@@ -201,14 +198,17 @@ class HrControl:
         print('Total exponential: ', sum(value_list))
 
         # 回傳值
-        return base * exp(sum(value_list))
+        return baseline_survival * np.exp(sum(value_list))
 
 
 def calculate_and_set(dialysis, bun, age, lvef_2d_none, lvef_2d, esd_none, esd, rdw_cv_none, rdw_cv, ivsd_none, ivsd, bmi, lvmi_none, lvmi, nt_proBNP_none, nt_proBNP, paod, total_acei, p2y12, ar_none, ar_value, en_h_display, nyha, rvdd_none, rvdd, ua_u_0, alt_none, alt, lad_none, lad, session_name):
-    value = HrControl.risk_calculation(dialysis, bun, age, lvef_2d_none, lvef_2d, esd_none, esd, rdw_cv_none, rdw_cv, ivsd_none, ivsd, bmi, lvmi_none, lvmi, nt_proBNP_none, nt_proBNP, paod, total_acei, p2y12, ar_none, ar_value, en_h_display, nyha, rvdd_none, rvdd, ua_u_0, alt_none, alt, lad_none,
+    baseline_hazard = load_csv("./models/baseline_hazard(1).csv")
+    baseline_survival = np.exp(-baseline_hazard['hazard'])
+    value = HrControl.risk_calculation(baseline_survival, dialysis, bun, age, lvef_2d_none, lvef_2d, esd_none, esd, rdw_cv_none, rdw_cv, ivsd_none, ivsd, bmi, lvmi_none, lvmi, nt_proBNP_none, nt_proBNP, paod, total_acei, p2y12, ar_none, ar_value, en_h_display, nyha, rvdd_none, rvdd, ua_u_0, alt_none, alt, lad_none,
                                        lad)
     st.session_state[session_name] = value
     st.session_state['pred_copy'] = False
+    
 @st.cache_data
 def load_csv(data_path):
     data = pd.read_csv(data_path)
