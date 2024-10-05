@@ -229,14 +229,16 @@ def predict_plot(hr1: float, hr2: float):
     plt.xlabel('Years after Sacubitril/Valsartan Initiation')
     plt.ylabel('Survival Probability')
 
+    # 設定 X 軸的刻度
+    year_intervals = range(0, len(baseline_survival), 12)
+    plt.xticks(year_intervals)
     
-   # 設定 X 軸的刻度（每隔 10 個月標示）
-    month_intervals = range(0, len(baseline_survival), 10)  # 每隔10個月設置一個刻度
-    plt.xticks(month_intervals)
-
-    # 設定 X 軸的上限（假設顯示 5 年，5 * 12 個月）
-    five_years_limit = 5 * 12  # 5 年等於 60 個月
-    plt.xlim(0, five_years_limit)
+    # 設定 X 軸的上限（5年）
+    ten_years_limit = 5 * 12  # 一年有 12 個月
+    plt.xlim(0, ten_years_limit)
+    
+    # 設定 X 軸的刻度標籤
+    plt.gca().xaxis.set_major_formatter(ticker.FuncFormatter(lambda x, _: int(x/12)))  # 將刻度除以 12 以得到年份
 
     # 設定 Y 軸的刻度，從 0 到 1，每 0.1 一個刻度
     y_intervals = np.arange(0.5, 1.1, 0.1)
