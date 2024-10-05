@@ -216,7 +216,7 @@ def load_csv(data_path):
 
 
 def predict_plot(hr1: float, hr2: float):
-    baseline_hazard = load_csv("./models/baseline_hazard.csv")
+    baseline_hazard = load_csv("./models/baseline_hazard(1).csv")
     baseline_survival = np.exp(-baseline_hazard['hazard'])
     f = plt.figure('v1', figsize=(10, 3), facecolor='#FAF3DD', edgecolor='#FAF3DD')
     plt.style.use('Solarize_Light2')
