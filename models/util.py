@@ -217,7 +217,7 @@ def load_csv(data_path):
 
 def predict_plot(hr1: float, hr2: float):
     baseline_hazard = load_csv("./models/baseline_hazard(1).csv")
-    baseline_survival = np.exp(-baseline_hazard['hazard'].cumsum())
+    baseline_survival = np.exp(-baseline_hazard['hazard'])
     f = plt.figure('v1', figsize=(10, 3), facecolor='#FAF3DD', edgecolor='#FAF3DD')
     plt.style.use('Solarize_Light2')
     predicted_survival1 = baseline_survival ** hr1
@@ -234,14 +234,18 @@ def predict_plot(hr1: float, hr2: float):
     year_intervals = range(0, len(baseline_survival), 12)
     plt.xticks(year_intervals)
     
-    # 設定 X 軸的上限（10年）
-    ten_years_limit = 10 * 12  # 一年有 12 個月
+    # 設定 X 軸的上限（5年）
+    ten_years_limit = 5 * 12  # 一年有 12 個月
     plt.xlim(0, ten_years_limit)
     
     # 設定 X 軸的刻度標籤
     plt.gca().xaxis.set_major_formatter(ticker.FuncFormatter(lambda x, _: int(x/12)))  # 將刻度除以 12 以得到年份
     
+    # 設定 Y 軸的刻度，從 0 到 1，每 0.1 一個刻度
+    y_intervals = np.arange(0.5, 1.1, 0.1)
+    plt.yticks(y_intervals)
+    
     # 設定 Y 軸的上下限
-    plt.ylim(0, 1)
+    plt.ylim(0.5, 1)
     
     return f
