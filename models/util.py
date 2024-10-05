@@ -233,8 +233,8 @@ def predict_plot(hr1: float, hr2: float):
     year_intervals = range(0, len(baseline_survival), 12)
     plt.xticks(year_intervals)
     
-    # 設定 X 軸的上限（5年）
-    ten_years_limit = 5 * 12  # 一年有 12 個月
+    # 設定 X 軸的上限（10年）
+    ten_years_limit = 10 * 12  # 一年有 12 個月
     plt.xlim(0, ten_years_limit)
     
     # 設定 X 軸的刻度標籤
