@@ -223,15 +223,12 @@ def predict_plot(hr1: float, hr2: float):
     predicted_survival1 = baseline_survival ** hr1
     predicted_survival2 = baseline_survival ** hr2
     
-    plt.plot(predicted_survival2, color='red')
-    plt.plot(predicted_survival1, color='blue')
-    plt.title('')
-    plt.xlabel('Years after Sacubitril/Valsartan Initiation')
-    plt.ylabel('Survival Probability')
-
     # 使用基準風險中的時間列來繪製曲線
     plt.plot(baseline_hazard['time'], predicted_survival1, color='blue', label='Before')
     plt.plot(baseline_hazard['time'], predicted_survival2, color='red', label='After')
+    plt.title('')
+    plt.xlabel('Years after Sacubitril/Valsartan Initiation')
+    plt.ylabel('Survival Probability')
     
     # 設定 X 軸的刻度為 1 年、2 年、3 年、4 年、5 年（以年份顯示）
     plt.xticks([12, 24, 36, 48, 60], ['1', '2', '3', '4', '5'])
@@ -246,12 +243,5 @@ def predict_plot(hr1: float, hr2: float):
     
     # 顯示圖例
     plt.legend(loc='lower left')
-
-    # 設定 Y 軸的刻度，從 0 到 1，每 0.1 一個刻度
-    y_intervals = np.arange(0, 1.1, 0.1)
-    plt.yticks(y_intervals)
-    
-    # 設定 Y 軸的上下限
-    plt.ylim(0, 1)
     
     return f
