@@ -245,7 +245,7 @@ def predict_plot(hr1: float, hr2: float):
     plt.ylim(0, 1)
     
     # 顯示圖例
-    plt.legend()
+    plt.legend(loc='lower left')
 
     # 設定 Y 軸的刻度，從 0 到 1，每 0.1 一個刻度
     y_intervals = np.arange(0, 1.1, 0.1)
