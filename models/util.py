@@ -230,8 +230,8 @@ def predict_plot(hr1: float, hr2: float):
     plt.ylabel('Survival Probability')
 
     # 使用基準風險中的時間列來繪製曲線
-    plt.plot(baseline_hazard['time'], predicted_survival1, color='blue', label=f'HR1: {hr1}')
-    plt.plot(baseline_hazard['time'], predicted_survival2, color='red', label=f'HR2: {hr2}')
+    plt.plot(baseline_hazard['time'], predicted_survival1, color='blue', label='Before')
+    plt.plot(baseline_hazard['time'], predicted_survival2, color='red', label='After')
     
     # 設定 X 軸的刻度為 1 年、2 年、3 年、4 年、5 年（以年份顯示）
     plt.xticks([12, 24, 36, 48, 60], ['1', '2', '3', '4', '5'])
