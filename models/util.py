@@ -233,8 +233,8 @@ def predict_plot(hr1: float, hr2: float):
     baseline_hazard = baseline_hazard.drop_duplicates(subset=['time']).sort_values(by='time')
     
     # 使用基準風險中的時間列來設定 X 軸的刻度
-    plt.plot(baseline_hazard['time'], predicted_survival1, color='blue', label='[before]')
-    plt.plot(baseline_hazard['time'], predicted_survival2, color='red', label='[after]')
+    plt.plot(baseline_hazard['time'], predicted_survival1, color='blue')
+    plt.plot(baseline_hazard['time'], predicted_survival2, color='red')
     
     # 設定 X 軸的刻度，使用唯一的時間點
     plt.xticks(baseline_hazard['time'][::12])  # 每隔 12 個月設置一個刻度
@@ -244,9 +244,6 @@ def predict_plot(hr1: float, hr2: float):
     
     # 設定 X 軸的刻度標籤為年份，假設你的時間列是以月份為單位的
     plt.gca().xaxis.set_major_formatter(ticker.FuncFormatter(lambda x, _: int(x/12)))  # 將刻度除以 12 以得到年份
-        
-    # 顯示圖例，標籤顯示 [before] 和 [after]
-    plt.legend()
 
     # 設定 Y 軸的刻度，從 0 到 1，每 0.1 一個刻度
     y_intervals = np.arange(0, 1.1, 0.1)
