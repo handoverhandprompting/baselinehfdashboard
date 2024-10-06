@@ -49,7 +49,7 @@ class HrControl:
     session_name = 'init'
 
     @staticmethod
-    def risk_calculation(baseline_survival, dialysis, bun, age, lvef_2d_none, lvef_2d, esd_none, esd, rdw_cv_none, rdw_cv, ivsd_none, ivsd, bmi, lvmi_none, lvmi, nt_proBNP_none, nt_proBNP, paod, total_acei, p2y12, ar_none, ar_value, en_h_display, nyha, rvdd_none, rvdd, ua_u_0, alt_none, alt, lad_none, lad):
+    def risk_calculation(dialysis, bun, age, lvef_2d_none, lvef_2d, esd_none, esd, rdw_cv_none, rdw_cv, ivsd_none, ivsd, bmi, lvmi_none, lvmi, nt_proBNP_none, nt_proBNP, paod, total_acei, p2y12, ar_none, ar_value, en_h_display, nyha, rvdd_none, rvdd, ua_u_0, alt_none, alt, lad_none, lad):
         # Exponential 部分數值
         # Dialysis & BUN 相關計算
         if dialysis == 0:
@@ -197,16 +197,15 @@ class HrControl:
         print('-' * 100)
         print('Total exponential: ', sum(value_list))
 
-        # 回傳值
-        return baseline_survival * np.exp(sum(value_list))
+        # 回傳 Cox 模型的風險值（不依賴 baseline_survival）
+        return np.exp(sum(value_list))
 
 
-def calculate_and_set(dialysis, bun, age, lvef_2d_none, lvef_2d, esd_none, esd, rdw_cv_none, rdw_cv, ivsd_none, ivsd, bmi, lvmi_none, lvmi, nt_proBNP_none, nt_proBNP, paod, total_acei, p2y12, ar_none, ar_value, en_h_display, nyha, rvdd_none, rvdd, ua_u_0, alt_none, alt, lad_none, lad, session_name):
-    baseline_hazard = load_csv("./models/baseline_hazard(1).csv")
-    baseline_survival = np.exp(-baseline_hazard['hazard'])
-    value = HrControl.risk_calculation(baseline_survival, dialysis, bun, age, lvef_2d_none, lvef_2d, esd_none, esd, rdw_cv_none, rdw_cv, ivsd_none, ivsd, bmi, lvmi_none, lvmi, nt_proBNP_none, nt_proBNP, paod, total_acei, p2y12, ar_none, ar_value, en_h_display, nyha, rvdd_none, rvdd, ua_u_0, alt_none, alt, lad_none,
-                                       lad)
-    st.session_state[session_name] = value
+def calculate_risk_value(dialysis, bun, age, lvef_2d_none, lvef_2d, esd_none, esd, rdw_cv_none, rdw_cv, ivsd_none, ivsd, bmi, lvmi_none, lvmi, nt_proBNP_none, nt_proBNP, paod, total_acei, p2y12, ar_none, ar_value, en_h_display, nyha, rvdd_none, rvdd, ua_u_0, alt_none, alt, lad_none, lad, session_name):
+    # 這裡不使用baseline_survival，只計算風險值
+    hr_value = HrControl.risk_calculation(1, dialysis, bun, age, lvef_2d_none, lvef_2d, esd_none, esd, rdw_cv_none, rdw_cv, ivsd_none, ivsd, bmi, lvmi_none, lvmi, nt_proBNP_none, nt_proBNP, paod, total_acei, p2y12, ar_none, ar_value, en_h_display, nyha, rvdd_none, rvdd, ua_u_0, alt_none, alt, lad_none, lad)
+    
+    st.session_state[session_name] = hr_value
     st.session_state['pred_copy'] = False
     
 @st.cache_data
