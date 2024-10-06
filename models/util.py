@@ -229,9 +229,6 @@ def predict_plot(hr1: float, hr2: float):
     plt.xlabel('Years after Sacubitril/Valsartan Initiation')
     plt.ylabel('Survival Probability')
 
-    # 確認基準風險文件中的時間點是否唯一，並進行排序
-    baseline_hazard = baseline_hazard.drop_duplicates(subset=['time']).sort_values(by='time')
-    
     # 使用基準風險中的時間列來設定 X 軸的刻度
     plt.plot(baseline_hazard['time'], predicted_survival1, color='blue')
     plt.plot(baseline_hazard['time'], predicted_survival2, color='red')
