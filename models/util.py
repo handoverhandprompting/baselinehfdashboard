@@ -236,14 +236,11 @@ def predict_plot(hr1: float, hr2: float):
     plt.plot(baseline_hazard['time'], predicted_survival1, color='blue')
     plt.plot(baseline_hazard['time'], predicted_survival2, color='red')
     
-    # 設定 X 軸的刻度，根據時間列每隔 12 個月設置一個刻度
-    plt.xticks(baseline_hazard['time'][::12])  # 每 12 個月設置一個刻度
+    # 設定 X 軸的刻度，根據時間列設置刻度
+    plt.xticks(baseline_hazard['time'][::12])  # 每隔 12 個時間點設置一個刻度
     
     # 設定 X 軸的上限，根據實際的時間範圍，而不是索引
     plt.xlim(baseline_hazard['time'].min(), baseline_hazard['time'].max())
-    
-    # 設定 X 軸的刻度標籤為月份或年份
-    plt.gca().xaxis.set_major_formatter(ticker.FuncFormatter(lambda x, _: '{:g}'.format(x/12)))  # 格式化顯示為月份或年份
 
     # 設定 Y 軸的刻度，從 0 到 1，每 0.1 一個刻度
     y_intervals = np.arange(0, 1.1, 0.1)
