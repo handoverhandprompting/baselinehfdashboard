@@ -230,7 +230,7 @@ def predict_plot(hr1: float, hr2: float):
     except:
         pass
     plt.title('')
-    plt.plot(baseline_hazard['Time'], baseline_survival, color='black')
+    plt.plot(baseline_hazard['time'], baseline_survival, color='black')
     plt.xlabel('Years after Sacubitril/Valsartan Initiation')
     plt.ylabel('Survival Probability')
     
