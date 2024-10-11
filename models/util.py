@@ -203,6 +203,8 @@ class HrControl:
 
 def calculate_and_set(dialysis, bun, age, lvef_2d_none, lvef_2d, esd_none, esd, rdw_cv_none, rdw_cv, ivsd_none, ivsd, bmi, lvmi_none, lvmi, nt_proBNP_none, nt_proBNP, paod, total_acei, p2y12, ar_none, ar_value, en_h_display, nyha, rvdd_none, rvdd, ua_u_0, alt_none, alt, lad_none, lad, session_name):
     baseline_hazard = load_csv("./models/baseline_hazard(1).csv")
+    table = load_csv("./models/baseline_hazard(1).csv")
+    baseline_table = np.exp(-table['hazard'])
     baseline_survival = np.exp(-baseline_hazard['hazard'])
     value = HrControl.risk_calculation(dialysis, bun, age, lvef_2d_none, lvef_2d, esd_none, esd, rdw_cv_none, rdw_cv, ivsd_none, ivsd, bmi, lvmi_none, lvmi, nt_proBNP_none, nt_proBNP, paod, total_acei, p2y12, ar_none, ar_value, en_h_display, nyha, rvdd_none, rvdd, ua_u_0, alt_none, alt, lad_none,
                                        lad)
@@ -224,6 +226,7 @@ def predict_plot(hr1: float, hr2: float):
     predicted_survival2 = baseline_survival ** hr2
     
     # 使用基準風險中的時間列來繪製曲線
+    plt.plot(baseline_table, color='black')
     plt.plot(baseline_hazard['time'], predicted_survival1, color='blue', label='Scenario 1')
     plt.plot(baseline_hazard['time'], predicted_survival2, color='red', label='Scenario 2')
     plt.title('')
