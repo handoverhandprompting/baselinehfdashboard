@@ -217,8 +217,6 @@ def load_csv(data_path):
 
 def predict_plot(hr1: float, hr2: float):
     baseline_hazard = load_csv("./models/baseline_hazard(1).csv")
-    baseline_hazard['cumulative_hazard'] = baseline_hazard['hazard'].cumsum()
-    baseline_hazard['survival_probability'] = baseline_hazard['cumulative_hazard'].apply(lambda x: np.exp(-x))
     baseline_survival = np.exp(-baseline_hazard['hazard'])
     f = plt.figure('v1', figsize=(10, 3), facecolor='#FAF3DD', edgecolor='#FAF3DD')
     plt.style.use('Solarize_Light2')
@@ -226,7 +224,7 @@ def predict_plot(hr1: float, hr2: float):
     predicted_survival2 = baseline_survival ** hr2
     
     # 使用基準風險中的時間列來繪製曲線
-    plt.plot(baseline_hazard['time'], baseline_hazard['survival_probability'], color='black')
+    plt.plot(baseline_hazard['time'], baseline_survival, color='black')
     plt.plot(baseline_hazard['time'], predicted_survival1, color='blue', label='Scenario 1')
     plt.plot(baseline_hazard['time'], predicted_survival2, color='red', label='Scenario 2')
     plt.title('')
@@ -240,7 +238,8 @@ def predict_plot(hr1: float, hr2: float):
     plt.xlim(0, 60)
     
     # 設定 Y 軸的刻度，從 0 到 1，每 0.1 一個刻度
-    plt.ylim(0, 1.2)
+    plt.yticks(np.arage(0, 1.1, 0.1), ['0', '0.1', '0.2', '0.3', '0.4', '0.5', '0.6', '0.7', '0.8', '0.9', '1.0']) 
+    plt.ylim(0, 1.1)
     
     # 顯示圖例
     plt.legend(loc='lower left')
