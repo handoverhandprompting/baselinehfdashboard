@@ -226,7 +226,7 @@ def predict_plot(hr1: float, hr2: float):
     predicted_survival2 = baseline_survival ** hr2
     
     # 使用基準風險中的時間列來繪製曲線
-    plt.plot(table['time'], color='black')
+    plt.plot(baseline_table['time'], color='black')
     plt.plot(baseline_hazard['time'], predicted_survival1, color='blue', label='Scenario 1')
     plt.plot(baseline_hazard['time'], predicted_survival2, color='red', label='Scenario 2')
     plt.title('')
