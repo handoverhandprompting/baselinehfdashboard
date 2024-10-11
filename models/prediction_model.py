@@ -185,7 +185,7 @@ def prediction_view():
                 st.write(f'###### LAD ######')
                 lad_none = st.checkbox('None', key='lad_none_pred', value=True)
             with col2_1:
-                lad = st.number_input('(cm)', key='lad_pred', disabled=lad_none, label_visibility='visible', help='LAD, Left Atrial Diameter', value=4.348)
+                lad = st.number_input('(cm)', key='lad_pred', disabled=lad_none, label_visibility='visible', help='LAD, Left Atrial Diameter', format="%0.1f")
 
         with st.container():
             col1, col1_1, space1, col2, col2_1 = st.columns([3, 6, 3, 3, 6])
