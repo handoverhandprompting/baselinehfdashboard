@@ -220,7 +220,7 @@ def predict_plot(hr1: float, hr2: float):
     # baseline_table = np.exp(-table['hazard'])
     baseline_hazard = load_csv("./models/baseline_hazard(1).csv")
     baseline_survival = np.exp(-baseline_hazard['hazard'])
-    f = plt.figure('v1', figsize=(10, 5), facecolor='#FAF3DD', edgecolor='#FAF3DD')
+    f = plt.figure('v1', figsize=(10, 3), facecolor='#FAF3DD', edgecolor='#FAF3DD')
     plt.style.use('Solarize_Light2')
     predicted_survival1 = baseline_survival ** hr1
     predicted_survival2 = baseline_survival ** hr2
