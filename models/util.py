@@ -241,7 +241,7 @@ def predict_plot(hr1: float, hr2: float):
     
     # 設定 Y 軸的刻度，從 0 到 1，每 0.1 一個刻度
     y_intervals = np.arange(0, 0.8, 0.08)
-    yticklabel = np.arange(0.1, 1, 0.1)
+    yticklabel = np.arange(0, 1, 0.1)
     plt.yticks(y_intervals, yticklabel)
     plt.ylim(0.1, 1)
     
