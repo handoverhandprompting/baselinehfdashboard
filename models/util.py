@@ -216,9 +216,9 @@ def load_csv(data_path):
 
 
 def predict_plot(hr1: float, hr2: float):
-    # table = load_csv("./models/baseline_hazard(1).csv")
-    # baseline_table = np.exp(-table['hazard'])
     baseline_hazard = load_csv("./models/baseline_hazard(1).csv")
+    baseline_hazard['cumulative_hazard'] = baseline_hazard['hazard'].cumsum()
+    baseline_hazard['survival_probability'] = baseline_hazard['cumulative_hazard'].apply(lambda x: np.exp(-x))
     baseline_survival = np.exp(-baseline_hazard['hazard'])
     f = plt.figure('v1', figsize=(10, 3), facecolor='#FAF3DD', edgecolor='#FAF3DD')
     plt.style.use('Solarize_Light2')
@@ -226,13 +226,13 @@ def predict_plot(hr1: float, hr2: float):
     predicted_survival2 = baseline_survival ** hr2
     
     # 使用基準風險中的時間列來繪製曲線
-    # plt.plot(baseline_table['time'], color='black')
+    plt.plot(baseline_hazard['time'], baseline_hazard['survival_probability'], color='black')
     plt.plot(baseline_hazard['time'], predicted_survival1, color='blue', label='Scenario 1')
     plt.plot(baseline_hazard['time'], predicted_survival2, color='red', label='Scenario 2')
     plt.title('')
     plt.xlabel('Years after Sacubitril/Valsartan Initiation')
     plt.ylabel('Survival Probability')
-    
+
     # 設定 X 軸的刻度為 1 年、2 年、3 年、4 年、5 年（以年份顯示）
     plt.xticks([12, 24, 36, 48, 60], ['1', '2', '3', '4', '5'])
     
@@ -240,10 +240,7 @@ def predict_plot(hr1: float, hr2: float):
     plt.xlim(0, 60)
     
     # 設定 Y 軸的刻度，從 0 到 1，每 0.1 一個刻度
-    y_intervals = np.arange(0, 0.8, 0.08)
-    yticklabel = np.arange(0, 1, 0.1)
-    plt.yticks(y_intervals, yticklabel)
-    plt.ylim(0.1, 1)
+    plt.ylim(0, 1.2)
     
     # 顯示圖例
     plt.legend(loc='lower left')
