@@ -218,8 +218,8 @@ def load_csv(data_path):
 def predict_plot(hr1: float, hr2: float):
     baseline_hazard = load_csv("./models/baseline_hazard(1).csv")
     baseline_survival = np.exp(-baseline_hazard['hazard'])
-    baseline_hazard['cumulative_hazard'] = baseline_hazard['hazard'].cumsum()
-    baseline_hazard['survival_probability'] = baseline_hazard['cumulative_hazard'].apply(lambda x: np.exp(-x))
+    baseline_hazard['survival_probability'] = baseline_hazard['hazard'].apply(lambda x: np.exp(-x))
+   
 
     f = plt.figure('v1', figsize=(10, 3), facecolor='#FAF3DD', edgecolor='#FAF3DD')
     plt.style.use('Solarize_Light2')
@@ -242,9 +242,6 @@ def predict_plot(hr1: float, hr2: float):
     
     # 設定 X 軸的上限（最多 5 年）
     plt.xlim(0, 60)
-
-    year_intervals = np.arange(0, baseline_hazard['time'].max() + 1, 12)  # 每隔 12 個月（一年）設置一次刻度
-    plt.xticks(year_intervals, [str(int(x / 12)) for x in year_intervals])  # 將刻度轉換為年份顯示
     
     # 設定 Y 軸的刻度，從 0 到 1，每 0.1 一個刻度
     plt.yticks(np.arange(0, 1.1, 0.1), ['0', '0.1', '0.2', '0.3', '0.4', '0.5', '0.6', '0.7', '0.8', '0.9', '1.0']) 
