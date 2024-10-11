@@ -35,12 +35,12 @@ def prediction_view():
         with col2_2:
             weight_unit = st.selectbox("Weight_unit", ["kg", "lbs"], key='weight-unit_pred')
         with col1:
-            height = st.number_input('Height ', step=1, value=None, key='height_pred', format="%0.5f")
+            height = st.number_input('Height ', step=1, value=160, key='height_pred')
             if height:
                 if height_unit == "in":
                     height = height * 2.54
         with col2:
-            weight = st.number_input('Weight ', step=1, value=None, key='weight_pred', format="%0.5f")
+            weight = st.number_input('Weight ', step=1, value=60, key='weight_pred')
             if weight:
                 if weight_unit == "lbs":
                     weight = weight * 0.45359237
@@ -79,7 +79,7 @@ def prediction_view():
                                         ['None', 'valsartan', 'losartan', 'captopril', 'enalapril', 'ramipril', 'Not mentioned above'],
                                         help='Angiotensin Converting Enzyme Inhibitors/Angiotensin Receptor Blockers', index=0, key='acei_display_pred')
         with col2:
-            acei_dose = st.number_input('Dose(mg)', disabled=(acei_display == 'None' or acei_display == 'Not mentioned above'), value=None, key='acei_dose_pred', format="%0.5f")
+            acei_dose = st.number_input('Dose(mg)', disabled=(acei_display == 'None' or acei_display == 'Not mentioned above'), value=None, key='acei_dose_pred', format="%0.2f")
             if acei_dose:
                 if acei_display == 'Valsartan':
                     total_acei = acei_dose
@@ -119,13 +119,13 @@ def prediction_view():
                 st.write(f'###### BUN ######')
                 bun_none = st.checkbox('None', key='bun_none_pred', value=True)
             with col1_1:
-                bun = st.number_input('(mg/dL)', disabled=bun_none, help='Blood Urea Nitrogen', value=None, key='bun_pred', format="%0.5f")
+                bun = st.number_input('(mg/dL)', disabled=bun_none, help='Blood Urea Nitrogen', value=20, key='bun_pred', format="%0.1f")
 
             with col2:
                 st.write(f'###### NT_proBNP ######')
                 nt_proBNP_none = st.checkbox('None', key='nt_proBNP_none_pred', value=True)
             with col3:
-                nt_proBNP = st.number_input('(pg/mL)', disabled=nt_proBNP_none, help='N-Terminal Pro-Brain (or B-type) Natriuretic Peptide', value=None, key='nt_proBNP_pred', format="%0.5f")
+                nt_proBNP = st.number_input('(pg/mL)', disabled=nt_proBNP_none, help='N-Terminal Pro-Brain (or B-type) Natriuretic Peptide', value=750, key='nt_proBNP_pred', format="%0.2f")
 
         st.write(' ')
 
@@ -135,13 +135,13 @@ def prediction_view():
                 st.write(f'###### ALT ######')
                 alt_none = st.checkbox('None', key='alt_none_pred', value=True)
             with col1_1:
-                alt = st.number_input('(U/L)', disabled=alt_none, key='alt_pred', help='Alanine Aminotransferase', value=None, format="%0.5f")
+                alt = st.number_input('(U/L)', disabled=alt_none, key='alt_pred', help='Alanine Aminotransferase', value=20, format="%0.2f")
 
             with col2:
                 st.write(f'###### RDW_CV ######')
                 rdw_cv_none = st.checkbox('None', key='rdw_cv_none_pred', value=True)
             with col2_1:
-                rdw_cv = st.number_input('(%)', disabled=rdw_cv_none, key='rdw_cv_pred', help='Red Cell Distribution Width_Coefficient of Variation', value=None, format="%0.5f")
+                rdw_cv = st.number_input('(%)', disabled=rdw_cv_none, key='rdw_cv_pred', help='Red Cell Distribution Width_Coefficient of Variation', value=15, format="%0.2f")
 
     with st.expander('❤️ :red[Cardiac parameters of echocardiography]'):
         with st.container():
@@ -157,7 +157,7 @@ def prediction_view():
                 st.write(f'###### RV ######')
                 rvdd_none = st.checkbox('None', key='rvdd_none_pred', value=True)
             with col2_1:
-                rvdd = st.number_input('(cm)', key='rvdd_pred', disabled=rvdd_none, help='RVDd, Right Ventricular Diastolic Dimension', value=None, format="%0.5f")
+                rvdd = st.number_input('(cm)', key='rvdd_pred', disabled=rvdd_none, help='RVDd, Right Ventricular Diastolic Dimension', value=3, format="%0.2f")
 
         with st.container():
             col1, col1_1, space1, col2, col2_1 = st.columns([3, 6, 3, 3, 6])
@@ -165,13 +165,13 @@ def prediction_view():
                 st.write(f'###### IVSd ######')
                 ivsd_none = st.checkbox('None', key='ivsd_none_pred', value=True)
             with col1_1:
-                ivsd = st.number_input('(cm)', key='ivsd_pred', disabled=ivsd_none, help='Interventricular Septum Dimension', value=None, format="%0.5f")
+                ivsd = st.number_input('(cm)', key='ivsd_pred', disabled=ivsd_none, help='Interventricular Septum Dimension', value=1, format="%0.2f")
 
             with col2:
                 st.write(f'###### LVMI ######')
                 lvmi_none = st.checkbox('None', key='lvmi_none_pred', value=True)
             with col2_1:
-                lvmi = st.number_input('(g/m2)', key='lvmi_pred', disabled=lvmi_none, label_visibility='visible', help='Left Ventricular Mass Index', value=None, format="%0.5f")
+                lvmi = st.number_input('(g/m2)', key='lvmi_pred', disabled=lvmi_none, label_visibility='visible', help='Left Ventricular Mass Index', value=35, format="%0.5f")
 
         with st.container():
             col1, col1_1, space1, col2, col2_1 = st.columns([3, 6, 3, 3, 6])
@@ -179,13 +179,13 @@ def prediction_view():
                 st.write(f'###### ESD ######')
                 esd_none = st.checkbox('None', key='esd_none_pred', value=True)
             with col1_1:
-                esd = st.number_input('(cm)', key='esd_pred', disabled=esd_none, help='End Systolic Dimension = LVIDs, Left Ventricular Internal Diameter End Systole', value=None, format="%0.5f")
+                esd = st.number_input('(cm)', key='esd_pred', disabled=esd_none, help='End Systolic Dimension = LVIDs, Left Ventricular Internal Diameter End Systole', value=5, format="%0.2f")
 
             with col2:
                 st.write(f'###### LAD ######')
                 lad_none = st.checkbox('None', key='lad_none_pred', value=True)
             with col2_1:
-                lad = st.number_input('(cm)', key='lad_pred', disabled=lad_none, label_visibility='visible', help='LAD, Left Atrial Diameter', value=None, format="%0.5f")
+                lad = st.number_input('(cm)', key='lad_pred', disabled=lad_none, label_visibility='visible', help='LAD, Left Atrial Diameter', value=5, format="%0.2f")
 
         with st.container():
             col1, col1_1, space1, col2, col2_1 = st.columns([3, 6, 3, 3, 6])
@@ -193,7 +193,7 @@ def prediction_view():
                 st.write(f'###### LVEF_2D ######')
                 lvef_2d_none = st.checkbox('None', key='lvef_2d_none_pred', value=True)
             with col1_1:
-                lvef_2d = st.number_input('(%)', key='lvef_2d_pred', disabled=lvef_2d_none, label_visibility='visible', help='Left Ventricular Ejection Fraction_2D = EF MOD-sp4, Ejection Fraction Method of Disks-Single Plane, Apical 4 Chamber', value=None, format="%0.5f")
+                lvef_2d = st.number_input('(%)', key='lvef_2d_pred', disabled=lvef_2d_none, label_visibility='visible', help='Left Ventricular Ejection Fraction_2D = EF MOD-sp4, Ejection Fraction Method of Disks-Single Plane, Apical 4 Chamber', value=35, format="%0.2f")
     # TODO:Change button layout
 
     # Assign what shall do in enter_col1 and enter_col2
