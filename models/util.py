@@ -223,19 +223,6 @@ def predict_plot(hr1: float, hr2: float):
     predicted_survival1 = baseline_survival ** hr1
     predicted_survival2 = baseline_survival ** hr2
 
-    data = load_csv("./models/KM527.csv")
-    data = data.sort_values(by='Time')
-    data.reset_index(drop=True, inplace=True)
-    data['n_at_risk'] = 0
-    data['n_events'] = 0
-    data['survival_prob'] = 1.0
-    for idx, time in enumerate(data['Time']):
-    n_at_risk = len(data[data['Time'] >= time])  # Number of individuals still at risk at this time point
-    n_events = data.loc[idx, 'Event']  # Number of events that happened at this time point
-    data.at[idx, 'n_at_risk'] = n_at_risk
-    data.at[idx, 'n_events'] = n_events
-    data['survival_prob'] = (1 - data['n_events'] / data['n_at_risk']).cumprod()
-
     # 使用基準風險中的時間列來繪製曲線
     try:
         plt.plot(baseline_hazard['time'], predicted_survival1, color='blue', label='Scenario 1')
@@ -243,7 +230,7 @@ def predict_plot(hr1: float, hr2: float):
     except:
         pass
     plt.title('')
-    plt.plot(data['Time'], data['survival_prob'], marker='o', color='black')
+    plt.plot(baseline_hazard['Time'], baseline_survival, color='black')
     plt.xlabel('Years after Sacubitril/Valsartan Initiation')
     plt.ylabel('Survival Probability')
     
