@@ -236,14 +236,15 @@ def predict_plot(hr1: float, hr2: float):
     plt.plot(baseline_hazard['time'], baseline_hazard['survival_probability'], color='black')
     plt.xlabel('Years after Sacubitril/Valsartan Initiation')
     plt.ylabel('Survival Probability')
-    year_intervals = np.arange(0, baseline_hazard['time'].max() + 1, 12)  # 每隔 12 個月（一年）設置一次刻度
-    plt.xticks(year_intervals, [str(int(x / 12)) for x in year_intervals])  # 將刻度轉換為年份顯示
     
     # 設定 X 軸的刻度為 1 年、2 年、3 年、4 年、5 年（以年份顯示）
     plt.xticks([12, 24, 36, 48, 60], ['1', '2', '3', '4', '5'])
     
     # 設定 X 軸的上限（最多 5 年）
     plt.xlim(0, 60)
+
+    year_intervals = np.arange(0, baseline_hazard['time'].max() + 1, 12)  # 每隔 12 個月（一年）設置一次刻度
+    plt.xticks(year_intervals, [str(int(x / 12)) for x in year_intervals])  # 將刻度轉換為年份顯示
     
     # 設定 Y 軸的刻度，從 0 到 1，每 0.1 一個刻度
     plt.yticks(np.arange(0, 1.1, 0.1), ['0', '0.1', '0.2', '0.3', '0.4', '0.5', '0.6', '0.7', '0.8', '0.9', '1.0']) 
