@@ -227,7 +227,7 @@ def predict_plot(hr1: float, hr2: float):
     try:
         plt.plot(baseline_hazard['time'], predicted_survival1, color='blue', label='Scenario 1')
         plt.plot(baseline_hazard['time'], predicted_survival2, color='red', label='Scenario 2')
-    catch:
+    except:
         pass
     plt.title('')
     plt.plot(baseline_hazard['time'], baseline_survival, color='black')
