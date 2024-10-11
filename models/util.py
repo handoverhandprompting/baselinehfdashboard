@@ -216,8 +216,8 @@ def load_csv(data_path):
 
 
 def predict_plot(hr1: float, hr2: float):
-    # table = load_csv("./models/baseline_hazard(1).csv")
-    # baseline_table = np.exp(-table['hazard'])
+    table = load_csv("./models/baseline_hazard(1).csv")
+    baseline_table = np.exp(-table['hazard'])
     baseline_hazard = load_csv("./models/baseline_hazard(1).csv")
     baseline_survival = np.exp(-baseline_hazard['hazard'])
     f = plt.figure('v1', figsize=(10, 3), facecolor='#FAF3DD', edgecolor='#FAF3DD')
@@ -226,7 +226,7 @@ def predict_plot(hr1: float, hr2: float):
     predicted_survival2 = baseline_survival ** hr2
     
     # 使用基準風險中的時間列來繪製曲線
-    # plt.plot(baseline_table, color='black')
+    plt.plot(table['time'], color='black')
     plt.plot(baseline_hazard['time'], predicted_survival1, color='blue', label='Scenario 1')
     plt.plot(baseline_hazard['time'], predicted_survival2, color='red', label='Scenario 2')
     plt.title('')
