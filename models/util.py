@@ -239,7 +239,7 @@ def predict_plot(hr1: float, hr2: float, show_blue: bool, show_red: bool):
     
     # 設定 Y 軸的刻度，從 0 到 1，每 0.1 一個刻度
     plt.yticks(np.arange(0, 1.1, 0.1), ['0', '0.1', '0.2', '0.3', '0.4', '0.5', '0.6', '0.7', '0.8', '0.9', '1.0']) 
-    plt.ylim(0, 1.02)
+    plt.ylim(-0.02, 1.02)
     
     # 顯示圖例
     plt.legend(loc='lower left')
