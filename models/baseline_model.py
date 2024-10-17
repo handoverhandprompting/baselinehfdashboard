@@ -43,7 +43,9 @@ def baseline_view():
 
     # Hight, weight and BMI
     with st.expander(':man-frowning: :violet[Baseline status]'):
-        age = st.number_input('Age', step=1)
+        age = st.number_input('Age', step=1, value=None)
+        if age is None:
+            age = 0
         bmi = 0
         col1, col1_1, col2, col2_2 = st.columns([5, 2, 5, 2])
         with col1_1:
@@ -51,17 +53,20 @@ def baseline_view():
         with col2_2:
             weight_unit = st.selectbox("Weight_unit", ["kg", "lbs"])
         with col1:
-            height = st.number_input('Height ', step=1, value=175)
+            height = st.number_input('Height ', value=None, format='%0.2f')
             if height:
                 if height_unit == "in":
                     height = height * 2.54
         with col2:
-            weight = st.number_input('Weight ', step=1, value=80)
+            weight = st.number_input('Weight ', value=None, format='%0.2f')
             if weight:
                 if weight_unit == "lbs":
                     weight = weight * 0.45359237
         if height and weight:
             bmi = round(weight / ((height / 100) ** 2), 2)
+        else:
+            bmi = 26
+
 
         col1, col2, col3 = st.columns([1, 3, 4])
         with col1:
@@ -95,7 +100,7 @@ def baseline_view():
                                         ['None', 'valsartan', 'losartan', 'captopril', 'enalapril', 'ramipril', 'Not mentioned above'],
                                         help='Angiotensin Converting Enzyme Inhibitors/Angiotensin Receptor Blockers', index=0)
         with col2:
-            acei_dose = st.number_input('Dose(mg)', disabled=(acei_display == 'None' or acei_display == 'Not mentioned above'), value=None)
+            acei_dose = st.number_input('Dose(mg)', disabled=(acei_display == 'None' or acei_display == 'Not mentioned above'), value=None, format='%0.2f')
             if acei_dose:
                 if acei_display == 'valsartan':
                     total_acei = acei_dose
@@ -136,13 +141,19 @@ def baseline_view():
                 st.write(f'###### BUN ######')
                 bun_none = st.checkbox('None', key='bun_none', value=True)
             with col1_1:
-                bun = st.number_input('(mg/dL)', disabled=bun_none, help='Blood Urea Nitrogen', value=0)
+                bun = st.number_input('(mg/dL)', disabled=bun_none, help='Blood Urea Nitrogen', value=None, format='%0.2f')
+
+            if bun is None:
+                bun = 0
 
             with col2:
                 st.write(f'###### NT_proBNP ######')
                 nt_proBNP_none = st.checkbox('None', key='nt_proBNP', value=True)
             with col3:
-                nt_proBNP = st.number_input('(pg/mL)', disabled=nt_proBNP_none, help='N-Terminal Pro-Brain (or B-type) Natriuretic Peptide', value=2481.283)
+                nt_proBNP = st.number_input('(pg/mL)', disabled=nt_proBNP_none, help='N-Terminal Pro-Brain (or B-type) Natriuretic Peptide', value=None, format='%0.2f')
+
+            if nt_proBNP is None:
+                nt_proBNP = 2481.28
 
         st.write(' ')
 
@@ -152,13 +163,19 @@ def baseline_view():
                 st.write(f'###### ALT ######')
                 alt_none = st.checkbox('None', key='alt', value=True)
             with col1_1:
-                alt = st.number_input('(U/L)', disabled=alt_none, key='alt_', help='Alanine Aminotransferase', value=15.614)
+                alt = st.number_input('(U/L)', disabled=alt_none, key='alt_', help='Alanine Aminotransferase', value=None, format='%0.2f')
+
+            if alt is None:
+                alt = 15.61
 
             with col2:
                 st.write(f'###### RDW_CV ######')
                 rdw_cv_none = st.checkbox('None', key='rdw_cv', value=True)
             with col2_1:
-                rdw_cv = st.number_input('(%)', disabled=rdw_cv_none, key='rdw_cv_', help='Red Cell Distribution Width_Coefficient of Variation', value=0)
+                rdw_cv = st.number_input('(%)', disabled=rdw_cv_none, key='rdw_cv_', help='Red Cell Distribution Width_Coefficient of Variation', value=None, format='%0.2f')
+
+                if rdw_cv is None:
+                    rdw_cv = 0
 
     with st.expander('❤️ :orange[Cardiac parameters of echocardiography]'):
         with st.container():
@@ -175,7 +192,10 @@ def baseline_view():
                 st.write(f'###### RV ######')
                 rvdd_none = st.checkbox('None', key='rvdd', value=True)
             with col2_1:
-                rvdd = st.number_input('(cm)', key='rvdd_', disabled=rvdd_none, help='RVDd, Right Ventricular Diastolic Dimension', value=0)
+                rvdd = st.number_input('(cm)', key='rvdd_', disabled=rvdd_none, help='RVDd, Right Ventricular Diastolic Dimension', value=None)
+
+            if rvdd is None:
+                rvdd = 0
 
         with st.container():
             col1, col1_1, space1, col2, col2_1 = st.columns([3, 6, 3, 3, 6])
@@ -183,13 +203,19 @@ def baseline_view():
                 st.write(f'###### IVSd ######')
                 ivsd_none = st.checkbox('None', key='ivsd', value=True)
             with col1_1:
-                ivsd = st.number_input('(cm)', key='ivsd_', disabled=ivsd_none, help='Interventricular Septum Dimension', value=0.0)
+                ivsd = st.number_input('(cm)', key='ivsd_', disabled=ivsd_none, help='Interventricular Septum Dimension', value=None, format='%0.2f')
+
+            if ivsd is None:
+                ivsd = 0
 
             with col2:
                 st.write(f'###### LVMI ######')
                 lvmi_none = st.checkbox('None', key='lvmi', value=True)
             with col2_1:
-                lvmi = st.number_input('(g/m2)', key='lvmi_', disabled=lvmi_none, label_visibility='visible', help='Left Ventricular Mass Index', value=199)
+                lvmi = st.number_input('(g/m2)', key='lvmi_', disabled=lvmi_none, label_visibility='visible', help='Left Ventricular Mass Index', value=None, format='%0.2f')
+
+            if lvmi is None:
+                lvmi = 199
 
         with st.container():
             col1, col1_1, space1, col2, col2_1 = st.columns([3, 6, 3, 3, 6])
@@ -197,13 +223,17 @@ def baseline_view():
                 st.write(f'###### ESD ######')
                 esd_none = st.checkbox('None', key='esd', value=True)
             with col1_1:
-                esd = st.number_input('(cm)', key='esd_', disabled=esd_none, help='End Systolic Dimension = LVIDs, Left Ventricular Internal Diameter End Systole', value=0)
+                esd = st.number_input('(cm)', key='esd_', disabled=esd_none, help='End Systolic Dimension = LVIDs, Left Ventricular Internal Diameter End Systole', value=None, format='%0.2f')
+            if esd is None:
+                esd = 0
 
             with col2:
                 st.write(f'###### LAD ######')
                 lad_none = st.checkbox('None', key='lad', value=True)
             with col2_1:
-                lad = st.number_input('(cm)', key='lad_', disabled=lad_none, label_visibility='visible', help='LAD, Left Atrial Diameter', value=4.348)
+                lad = st.number_input('(cm)', key='lad_', disabled=lad_none, label_visibility='visible', help='LAD, Left Atrial Diameter', value=None, format='%0.2f')
+            if lad is None:
+                lad = 4.35
 
         with st.container():
             col1, col1_1, space1, col2, col2_1 = st.columns([3, 6, 3, 3, 6])
@@ -211,7 +241,10 @@ def baseline_view():
                 st.write(f'###### LVEF_2D ######')
                 lvef_2d_none = st.checkbox('None', key='lvef_2d', value=True)
             with col1_1:
-                lvef_2d = st.number_input('(%)', key='lvef_2d_', disabled=lvef_2d_none, label_visibility='visible', help='Left Ventricular Ejection Fraction_2D = EF MOD-sp4, Ejection Fraction Method of Disks-Single Plane, Apical 4 Chamber', value=0)
+                lvef_2d = st.number_input('(%)', key='lvef_2d_', disabled=lvef_2d_none, label_visibility='visible', help='Left Ventricular Ejection Fraction_2D = EF MOD-sp4, Ejection Fraction Method of Disks-Single Plane, Apical 4 Chamber', value=None, format='%0.2f')
+
+            if lvef_2d is None:
+                lvef_2d = 0
 
     # Assign what shall do in enter_col1 and enter_col2
     st.markdown("""
@@ -242,5 +275,3 @@ def baseline_view():
     if pred_copy_btn:
         st.session_state['pred_copy'] = True
         st.experimental_rerun()
-    # TODO: debug use, remove later
-    print(st.session_state['pred_copy'])
