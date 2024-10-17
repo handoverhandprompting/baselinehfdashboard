@@ -49,7 +49,7 @@ class HrControl:
     session_name = 'init'
 
     @staticmethod
-    def risk_calculation(dialysis, bun, age, lvef_2d_none, lvef_2d, esd_none, esd, rdw_cv_none, rdw_cv, ivsd_none, ivsd, bmi, lvmi_none, lvmi, nt_proBNP_none, nt_proBNP, paod, total_acei, p2y12, ar_none, ar_value, en_h_display, nyha, rvdd_none, rvdd, ua_u_0, alt_none, alt, lad_none, lad):
+    def risk_calculation(dialysis=0, bun=30, age=65, lvef_2d_none=False, lvef_2d=30, esd_none=False, esd=5.5, rdw_cv_none=False, rdw_cv=14.5, ivsd_none=False, ivsd=1.2, bmi=28, lvmi_none=False, lvmi=125, nt_proBNP_none=False, nt_proBNP=1500, paod=0, total_acei=80, p2y12=0, ar_none=False, ar_value=1.5, en_h_display='Outpatient Department (OPD)', nyha=2, rvdd_none=False, rvdd=3.2, ua_u_0=0, alt_none=False, alt=30, lad_none=False, lad=4.5):
         # Exponential 部分數值
         # Dialysis & BUN 相關計算
         if dialysis == 0:
@@ -202,8 +202,6 @@ class HrControl:
 
 
 def calculate_and_set(dialysis, bun, age, lvef_2d_none, lvef_2d, esd_none, esd, rdw_cv_none, rdw_cv, ivsd_none, ivsd, bmi, lvmi_none, lvmi, nt_proBNP_none, nt_proBNP, paod, total_acei, p2y12, ar_none, ar_value, en_h_display, nyha, rvdd_none, rvdd, ua_u_0, alt_none, alt, lad_none, lad, session_name):
-    baseline_hazard = load_csv("./models/baseline_hazard(1).csv")
-    baseline_survival = np.exp(-baseline_hazard['hazard'])
     value = HrControl.risk_calculation(dialysis, bun, age, lvef_2d_none, lvef_2d, esd_none, esd, rdw_cv_none, rdw_cv, ivsd_none, ivsd, bmi, lvmi_none, lvmi, nt_proBNP_none, nt_proBNP, paod, total_acei, p2y12, ar_none, ar_value, en_h_display, nyha, rvdd_none, rvdd, ua_u_0, alt_none, alt, lad_none,
                                        lad)
     st.session_state[session_name] = value
@@ -215,7 +213,7 @@ def load_csv(data_path):
     return data
 
 
-def predict_plot(hr1: float, hr2: float):
+def predict_plot(hr1: float, hr2: float, show_blue: bool, show_red: bool):
     baseline_hazard = load_csv("./models/baseline_hazard(1).csv")
     baseline_survival = np.exp(-baseline_hazard['hazard'])
     f = plt.figure('v1', figsize=(10, 3), facecolor='#FAF3DD', edgecolor='#FAF3DD')
@@ -224,8 +222,11 @@ def predict_plot(hr1: float, hr2: float):
     predicted_survival2 = baseline_survival ** hr2
 
     # 使用基準風險中的時間列來繪製曲線
-    plt.plot(baseline_hazard['time'], predicted_survival2, color='red', label='Scenario 2')
+    if show_red:
+        plt.plot(baseline_hazard['time'], predicted_survival2, color='red', label='Scenario 2')
+
     plt.plot(baseline_hazard['time'], predicted_survival1, color='blue', label='Scenario 1')
+
     plt.title('')
     plt.xlabel('Years after Sacubitril/Valsartan Initiation')
     plt.ylabel('Survival Probability')
@@ -244,3 +245,4 @@ def predict_plot(hr1: float, hr2: float):
     plt.legend(loc='lower left')
     
     return f
+
