@@ -149,7 +149,7 @@ def baseline_view():
                 bun = 0
 
             with col2:
-                st.write(f'###### NT_proBNP ######')
+                st.write(f'###### NT-proBNP ######')
                 nt_proBNP_none = st.checkbox('None', key='nt_proBNP', value=True)
             with col3:
                 nt_proBNP = st.number_input('(pg/mL)', disabled=nt_proBNP_none, help='N-Terminal Pro-Brain (or B-type) Natriuretic Peptide', value=None, format='%0.2f')
@@ -171,7 +171,7 @@ def baseline_view():
                 alt = 15.61
 
             with col2:
-                st.write(f'###### RDW_CV ######')
+                st.write(f'###### RDW-CV ######')
                 rdw_cv_none = st.checkbox('None', key='rdw_cv', value=True)
             with col2_1:
                 rdw_cv = st.number_input('(%)', disabled=rdw_cv_none, key='rdw_cv_', help='Red Cell Distribution Width_Coefficient of Variation', value=None, format='%0.2f')
