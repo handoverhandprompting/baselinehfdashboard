@@ -20,6 +20,7 @@ def baseline_view():
         if 'risk_value_col1_pred' not in st.session_state:
             st.session_state['risk_value_col1_pred'] = 1.0
         card_value1 = st.session_state['risk_value_col1_pred']
+        st.session_state['risk_value_col1'] = card_value1
 
     if 'risk_value_col2' not in st.session_state:
         st.session_state['risk_value_col2'] = 1.0
@@ -30,6 +31,7 @@ def baseline_view():
         if 'risk_value_col2_pred' not in st.session_state:
             st.session_state['risk_value_col2_pred'] = 1.0
         card_value2 = st.session_state['risk_value_col2_pred']
+        st.session_state['risk_value_col2'] = card_value2
 
     card_value1 = round(card_value1, 3)
     card_value2 = round(card_value2, 3)
@@ -275,3 +277,4 @@ def baseline_view():
     if pred_copy_btn:
         st.session_state['pred_copy'] = True
         st.experimental_rerun()
+
