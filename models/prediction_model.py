@@ -15,14 +15,18 @@ def prediction_view():
         # blue copy if there's value in baseline model
         if 'risk_value_col1' in st.session_state:
             hr1 = st.session_state['risk_value_col1']
+            st.session_state['risk_value_col1_pred'] = hr1
         # blue set to 1 if copy from baseline clicked but baseline not set
         else:
             hr1 = 1
+            st.session_state['risk_value_col1_pred'] = hr1
 
         if 'risk_value_col2' in st.session_state:
             hr2 = st.session_state['risk_value_col2']
+            st.session_state['risk_value_col2_pred'] = hr2
         else:
             hr2 = 1
+            st.session_state['risk_value_col2_pred'] = hr2
 
     # If copy from explanation is not activated
     else:
@@ -297,5 +301,3 @@ def prediction_view():
         st.session_state['showblue'] = True
         st.session_state['showred'] = True
         st.experimental_rerun()
-    # TODO: debug
-    print(st.session_state['risk_value_col1_pred'])
