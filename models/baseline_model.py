@@ -6,7 +6,7 @@ import base64
 
 # ==========
 def baseline_view():
-    st.subheader('Baseline Model')
+    st.subheader('Entresto initiation')
     # hr value switchs
     if 'pred_copy' not in st.session_state:
         st.session_state['pred_copy'] = False
