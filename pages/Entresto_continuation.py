@@ -4,6 +4,7 @@ from models.page_util import hr_cal
 
 
 def second_page():
+    st.subheader('Entresto continuation')
     if 'risk_value2_col1' not in st.session_state:
         st.session_state['risk_value2_col1'] = 1.0
     if 'risk_value2_col2' not in st.session_state:
