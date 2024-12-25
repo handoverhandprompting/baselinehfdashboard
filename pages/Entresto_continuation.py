@@ -28,7 +28,7 @@ def second_page():
         cad_display = st.selectbox('CAD', [['No', False], ['Yes', True]], format_func=lambda x: x[0], help='Coronary artery disease')
         cad = cad_display[1]
         hb_level = None
-        hb_level_display = st.text_input('Hb level(g/dL)', help='Hemoglobin')
+        hb_level_display = st.text_input('Hb level (g/dL)', help='Hemoglobin')
         if hb_level_display:
             try:
                 hb_level = round(float(hb_level_display), 2)
@@ -48,7 +48,7 @@ def second_page():
             second_ = st.selectbox('middle', ['IV', 'PO'], disabled=(ld_ == 'None'), label_visibility='hidden')
         with right_col:
             daily_dose_ = None
-            daily_dose_display = st.text_input('Daily dose(mg)', disabled=(ld_ == 'None'))
+            daily_dose_display = st.text_input('Daily dose (mg)', disabled=(ld_ == 'None'))
             if daily_dose_display:
                 try:
                     daily_dose_ = round(float(daily_dose_display))
@@ -57,7 +57,7 @@ def second_page():
 
     with st.expander(':1234: Current Status'):
         current_hb = None
-        current_hb_display = st.text_input('Hb level(g/dL)', help='Hemoglobin', key='current_hb_display')
+        current_hb_display = st.text_input('Hb level (g/dL)', help='Hemoglobin', key='current_hb_display')
         if current_hb_display:
             try:
                 current_hb = round(float(current_hb_display))
@@ -130,7 +130,7 @@ def second_page():
         st.divider()
 
         levf_list = []
-        levf0 = st.number_input('Average LVEF(%)', step=0.01, help='Enter left ventricular ejection fractions estimated through the Teichholz method (M-mode), or values from 2D echocardiography (e.g., Simpson’s method) if unavailable.')
+        levf0 = st.number_input('Average LVEF (%)', step=0.01, help='Enter left ventricular ejection fractions estimated through the Teichholz method (M-mode), or values from 2D echocardiography (e.g., Simpson’s method) if unavailable.')
         if levf0:
             levf_list += [levf0]
             i = 1
