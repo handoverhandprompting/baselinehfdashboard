@@ -130,7 +130,7 @@ def second_page():
         st.divider()
 
         levf_list = []
-        levf0 = st.number_input('Average LEVF(%)', step=0.01, help='Enter left ventricular ejection fractions estimated through the Teichholz method (M-mode), or values from 2D echocardiography (e.g., Simpson’s method) if unavailable.')
+        levf0 = st.number_input('Average LVEF(%)', step=0.01, help='Enter left ventricular ejection fractions estimated through the Teichholz method (M-mode), or values from 2D echocardiography (e.g., Simpson’s method) if unavailable.')
         if levf0:
             levf_list += [levf0]
             i = 1
