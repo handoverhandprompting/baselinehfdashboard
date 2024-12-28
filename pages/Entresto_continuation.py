@@ -27,7 +27,7 @@ def second_page():
         cad_display = st.selectbox('CAD', [['No', False], ['Yes', True]], format_func=lambda x: x[0], help='Coronary artery disease')
         cad = cad_display[1]
         hb_level = None
-        hb_level_display = st.text_input('Hb level(g/dL)', help='Hemoglobin')
+        hb_level_display = st.text_input('Hb level (g/dL)', help='Hemoglobin')
         if hb_level_display:
             try:
                 hb_level = round(float(hb_level_display), 2)
