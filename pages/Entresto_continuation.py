@@ -4,7 +4,6 @@ from models.page_util import hr_cal
 
 
 def second_page():
-    st.subheader('Entresto continuation')
     if 'risk_value2_col1' not in st.session_state:
         st.session_state['risk_value2_col1'] = 1.0
     if 'risk_value2_col2' not in st.session_state:
@@ -28,7 +27,7 @@ def second_page():
         cad_display = st.selectbox('CAD', [['No', False], ['Yes', True]], format_func=lambda x: x[0], help='Coronary artery disease')
         cad = cad_display[1]
         hb_level = None
-        hb_level_display = st.text_input('Hb level (g/dL)', help='Hemoglobin')
+        hb_level_display = st.text_input('Hb level(g/dL)', help='Hemoglobin')
         if hb_level_display:
             try:
                 hb_level = round(float(hb_level_display), 2)
@@ -85,48 +84,60 @@ def second_page():
 
         bun_increase_display_list = []
         bun_increase9_display_list = []
-        bun_increase_display0 = st.number_input('Maximum increase of BUN level (mg/dL) in the past 1 month', step=0.01, help='Blood urea nitrogen')
-        if bun_increase_display0:
-            bun_increase_display_list += [bun_increase_display0]
-            i = 1
-            while True:
-                if ('bun_increase_display' + str(i - 1)) in locals() and locals()['bun_increase_display' + str(i - 1)] is not None:
-                    locals()['bun_increase_display' + str(i)] = st.number_input('Maximum increase of BUN level (mg/dL) in the past 1 month', key=('b' + str(i)), value=None, label_visibility='hidden')
-                    if locals()['bun_increase_display' + str(i)]:
-                        bun_increase_display_list += [locals()['bun_increase_display' + str(i)]]
+
+        with st.container():
+            title_col1, title_col2 = st.columns(2)
+            with title_col1:
+                st.write('Maximum increase of BUN level (mg/dL) in the past 1 month')
+            with title_col2:
+                bun_col2_sub1, bun_col2_sub2 = st.columns([5, 2])
+                with bun_col2_sub1:
+                    st.write('Maximum increase of BUN level (mg/dL) in the past 9 month')
+                with bun_col2_sub2:
+                    if st.button('sync', key='1mon_sync'):
+                        st.session_state['_sync1n9'] = True
+
+
+        bun_col1, bun_col2 = st.columns(2)
+        with bun_col1:
+            bun_increase_display0 = st.number_input('Maximum increase of BUN level (mg/dL) in the past 1 month', step=0.01, help='Blood urea nitrogen', label_visibility='hidden')
+            if bun_increase_display0:
+                bun_increase_display_list += [bun_increase_display0]
+                i = 1
+                while True:
+                    if ('bun_increase_display' + str(i - 1)) in locals() and locals()['bun_increase_display' + str(i - 1)] is not None:
+                        locals()['bun_increase_display' + str(i)] = st.number_input('Maximum increase of BUN level (mg/dL) in the past 1 month', key=('b' + str(i)), value=None, label_visibility='hidden')
+                        if locals()['bun_increase_display' + str(i)]:
+                            bun_increase_display_list += [locals()['bun_increase_display' + str(i)]]
+                        else:
+                            break
                     else:
                         break
-                else:
-                    break
-                i += 1
-        st.divider()
+                    i += 1
 
-        st.write('Maximum increase of BUN level (mg/dL) in the past 9 month')
-        if st.button('sync', key='1mon_sync'):
-            st.session_state['_sync1n9'] = True
+        with bun_col2:
             fake_index = 0
-            for fake_input_value in bun_increase_display_list:
-                st.number_input('fake_input', key='fake_input' + str(fake_index), label_visibility='hidden', disabled=True, value=fake_input_value)
-                fake_index += 1
-
-
-        bun_increase9_display0 = st.number_input('Maximum increase of BUN level (mg/dL) in the past 9 month', step=0.01, help='Blood urea nitrogen', label_visibility='hidden')
-        if bun_increase9_display0:
-            bun_increase9_display_list += [bun_increase9_display0]
-            i = 1
-            while True:
-                if ('bun_increase9_display' + str(i - 1)) in locals() and locals()['bun_increase9_display' + str(i - 1)] is not None:
-                    locals()['bun_increase9_display' + str(i)] = st.number_input('Maximum increase of BUN level (mg/dL) in the past 9 month', key=('b9' + str(i)), value=None, label_visibility='hidden')
-                    if locals()['bun_increase9_display' + str(i)]:
-                        bun_increase9_display_list += [locals()['bun_increase9_display' + str(i)]]
+            if st.session_state['_sync1n9']:
+                for fake_input_value in bun_increase_display_list:
+                    st.number_input('fake_input', key='fake_input' + str(fake_index), label_visibility='hidden', disabled=True, value=fake_input_value)
+                    fake_index += 1
+            bun_increase9_display0 = st.number_input('Maximum increase of BUN level (mg/dL) in the past 9 month', step=0.01, help='Blood urea nitrogen', label_visibility='hidden')
+            if bun_increase9_display0:
+                bun_increase9_display_list += [bun_increase9_display0]
+                i = 1
+                while True:
+                    if ('bun_increase9_display' + str(i - 1)) in locals() and locals()['bun_increase9_display' + str(i - 1)] is not None:
+                        locals()['bun_increase9_display' + str(i)] = st.number_input('Maximum increase of BUN level (mg/dL) in the past 9 month', key=('b9' + str(i)), value=None, label_visibility='hidden')
+                        if locals()['bun_increase9_display' + str(i)]:
+                            bun_increase9_display_list += [locals()['bun_increase9_display' + str(i)]]
+                        else:
+                            break
                     else:
                         break
-                else:
-                    break
-                i += 1
-        if st.session_state['_sync1n9']:
-            bun_increase9_display_list = bun_increase_display_list + bun_increase9_display_list
-
+                    i += 1
+            if st.session_state['_sync1n9']:
+                bun_increase9_display_list = bun_increase_display_list + bun_increase9_display_list
+        print(bun_increase9_display_list)
         st.divider()
 
         levf_list = []
