@@ -88,11 +88,11 @@ def second_page():
         with st.container():
             title_col1, title_col2 = st.columns(2)
             with title_col1:
-                st.write('Maximum increase of BUN level (mg/dL) in the past 1 month')
+                st.write('Acute change: maximum increase of BUN (mg/dL) in the past 1 month')
             with title_col2:
                 bun_col2_sub1, bun_col2_sub2 = st.columns([5, 2])
                 with bun_col2_sub1:
-                    st.write('Maximum increase of BUN level (mg/dL) in the past 9 month')
+                    st.write('Chronic change: maximum increase of BUN (mg/dL) in the past 9 month')
                 with bun_col2_sub2:
                     if st.button('sync', key='1mon_sync'):
                         st.session_state['_sync1n9'] = True
