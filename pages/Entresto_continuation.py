@@ -100,13 +100,13 @@ def second_page():
 
         bun_col1, bun_col2 = st.columns(2)
         with bun_col1:
-            bun_increase_display0 = st.number_input('Maximum increase of BUN level (mg/dL) in the past 1 month', step=0.01, help='Blood urea nitrogen', label_visibility='hidden')
+            bun_increase_display0 = st.number_input('Acute change: maximum increase of BUN (mg/dL) in the past 1 month', step=0.01, help='Blood urea nitrogen', label_visibility='hidden')
             if bun_increase_display0:
                 bun_increase_display_list += [bun_increase_display0]
                 i = 1
                 while True:
                     if ('bun_increase_display' + str(i - 1)) in locals() and locals()['bun_increase_display' + str(i - 1)] is not None:
-                        locals()['bun_increase_display' + str(i)] = st.number_input('Maximum increase of BUN level (mg/dL) in the past 1 month', key=('b' + str(i)), value=None, label_visibility='hidden')
+                        locals()['bun_increase_display' + str(i)] = st.number_input('Acute change: maximum increase of BUN (mg/dL) in the past 1 month', key=('b' + str(i)), value=None, label_visibility='hidden')
                         if locals()['bun_increase_display' + str(i)]:
                             bun_increase_display_list += [locals()['bun_increase_display' + str(i)]]
                         else:
@@ -121,13 +121,13 @@ def second_page():
                 for fake_input_value in bun_increase_display_list:
                     st.number_input('fake_input', key='fake_input' + str(fake_index), label_visibility='hidden', disabled=True, value=fake_input_value)
                     fake_index += 1
-            bun_increase9_display0 = st.number_input('Maximum increase of BUN level (mg/dL) in the past 9 month', step=0.01, help='Blood urea nitrogen', label_visibility='hidden')
+            bun_increase9_display0 = st.number_input('Chronic change: maximum increase of BUN (mg/dL) in the past 9 month', step=0.01, help='Blood urea nitrogen', label_visibility='hidden')
             if bun_increase9_display0:
                 bun_increase9_display_list += [bun_increase9_display0]
                 i = 1
                 while True:
                     if ('bun_increase9_display' + str(i - 1)) in locals() and locals()['bun_increase9_display' + str(i - 1)] is not None:
-                        locals()['bun_increase9_display' + str(i)] = st.number_input('Maximum increase of BUN level (mg/dL) in the past 9 month', key=('b9' + str(i)), value=None, label_visibility='hidden')
+                        locals()['bun_increase9_display' + str(i)] = st.number_input('Chronic change: maximum increase of BUN (mg/dL) in the past 9 month', key=('b9' + str(i)), value=None, label_visibility='hidden')
                         if locals()['bun_increase9_display' + str(i)]:
                             bun_increase9_display_list += [locals()['bun_increase9_display' + str(i)]]
                         else:
